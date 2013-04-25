@@ -10,7 +10,7 @@ namespace OAuth2.Client.Impl
     /// </summary>
     public class TwitterClient : OAuthClient
     {
-        public TwitterClient(IRequestFactory factory, IClientConfiguration configuration)
+        public TwitterClient(IRequestFactory factory, IOAuth2Configuration configuration)
             : base(factory, configuration)
         {
         }

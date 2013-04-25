@@ -53,7 +53,7 @@ namespace OAuth2
             {
                 var types = this.GetClientTypes().ToList();
                 Func<ClientConfiguration, Type> getType = 
-                    configuration => types.FirstOrDefault(x => x.Name == configuration.ClientTypeName);
+                    configuration => types.FirstOrDefault(x => x.Name == configuration.ProviderName);
 
                 return
                     _configurationSection.Services.AsEnumerable()

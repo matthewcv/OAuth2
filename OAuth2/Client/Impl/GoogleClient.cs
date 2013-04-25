@@ -15,7 +15,7 @@ namespace OAuth2.Client.Impl
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        public GoogleClient(IRequestFactory factory, IClientConfiguration configuration)
+        public GoogleClient(IRequestFactory factory, IOAuth2Configuration configuration)
             : base(factory, configuration)
         {
         }

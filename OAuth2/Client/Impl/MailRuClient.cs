@@ -12,13 +12,13 @@ namespace OAuth2.Client.Impl
     /// </summary>
     public class MailRuClient : OAuth2Client
     {
-        private readonly IClientConfiguration _configuration;
+        private readonly IOAuth2Configuration _configuration;
         /// <summary>
         /// Initializes a new instance of the <see cref="MailRuClient"/> class.
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        public MailRuClient(IRequestFactory factory, IClientConfiguration configuration) 
+        public MailRuClient(IRequestFactory factory, IOAuth2Configuration configuration) 
             : base(factory, configuration)
         {
             _configuration = configuration;
@@ -79,7 +79,7 @@ namespace OAuth2.Client.Impl
             // http://api.mail.ru/docs/guides/restapi/
             // http://api.mail.ru/docs/reference/rest/users.getInfo/
 
-            request.AddParameter("app_id", _configuration.ClientId);
+            request.AddParameter("app_id", ClientConfiguration.ClientId);
             request.AddParameter("method", "users.getInfo");
             request.AddParameter("secure", "1");            
             request.AddParameter("session_key", AccessToken);
@@ -90,7 +90,7 @@ namespace OAuth2.Client.Impl
 
             //sign=hex_md5('app_id={client_id}method=users.getInfosecure=1session_key={access_token}{secret_key}')
             string signature = string.Concat(request.Parameters.OrderBy(x => x.Name).Select(x => string.Format("{0}={1}", x.Name, x.Value)).ToList());            
-            signature = (signature+_configuration.ClientSecret).GetMd5Hash();
+            signature = (signature+ClientConfiguration.ClientSecret).GetMd5Hash();
             
             request.Parameters.Remove(fakeParam);
 

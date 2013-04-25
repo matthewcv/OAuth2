@@ -8,7 +8,7 @@ namespace OAuth2.Configuration
     /// </summary>
     public class ClientConfiguration : ConfigurationElement, IClientConfiguration
     {
-        private const string ClientTypeNameKey = "clientType";
+        private const string ProviderNameKey = "providerName";
         private const string ClientIdKey = "clientId";
         private const string EnabledKey = "enabled";
         private const string ClientSecretKey = "clientSecret";
@@ -19,10 +19,10 @@ namespace OAuth2.Configuration
         /// <summary>
         /// Name of client type.
         /// </summary>
-        [ConfigurationProperty(ClientTypeNameKey, IsRequired = true, IsKey = true)]
-        public string ClientTypeName
+        [ConfigurationProperty(ProviderNameKey, IsRequired = true, IsKey = true)]
+        public string ProviderName
         {
-            get { return (string) this[ClientTypeNameKey]; }
+            get { return (string)this[ProviderNameKey]; }
         }
         
         /// <summary>
@@ -70,17 +70,6 @@ namespace OAuth2.Configuration
             get { return (string) this[ScopeKey]; }
         }
 
-        /// <summary>
-        /// Redirect URI (URI user will be redirected to 
-        /// after authentication using third-party service).
-        /// </summary>
-        [ConfigurationProperty(RedirectUriKey, IsRequired = true)]
-        public string RedirectUri
-        {
-            get
-            {
-                return UriUtility.ToAbsolute((string) this[RedirectUriKey]);
-            }
-        }
+
     }
 }

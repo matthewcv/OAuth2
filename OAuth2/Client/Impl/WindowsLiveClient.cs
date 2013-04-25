@@ -16,7 +16,7 @@ namespace OAuth2.Client.Impl
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        public WindowsLiveClient(IRequestFactory factory, IClientConfiguration configuration) 
+        public WindowsLiveClient(IRequestFactory factory, IOAuth2Configuration configuration) 
             : base(factory, configuration)
         {
         }

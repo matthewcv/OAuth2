@@ -22,7 +22,7 @@ namespace OAuth2.Infrastructure
                     "Cannot resolve absolute URI outside of ASP.NET application " +
                     "(current HTTP context is null).");
             }
-
+            
             uri = uri.Substring(1); // without "~"
 
             var request = HttpContext.Current.Request;

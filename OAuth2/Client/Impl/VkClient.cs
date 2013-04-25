@@ -18,7 +18,7 @@ namespace OAuth2.Client.Impl
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        public VkClient(IRequestFactory factory, IClientConfiguration configuration)
+        public VkClient(IRequestFactory factory, IOAuth2Configuration configuration)
             : base(factory, configuration)
         {
         }

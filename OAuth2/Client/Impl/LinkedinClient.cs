@@ -14,7 +14,7 @@ namespace OAuth2.Client.Impl
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        public LinkedInClient(IRequestFactory factory, IClientConfiguration configuration) 
+        public LinkedInClient(IRequestFactory factory, IOAuth2Configuration configuration) 
             : base(factory, configuration)
         {
         }

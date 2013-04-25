@@ -65,7 +65,7 @@ namespace OAuth2.Configuration
         /// </returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
-            return ((ClientConfiguration) element).ClientTypeName;
+            return ((ClientConfiguration) element).ProviderName;
         }
     }
 }

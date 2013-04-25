@@ -12,7 +12,7 @@ namespace OAuth2.Client.Impl
     /// </summary>
     public class GitHubClient : OAuth2Client
     {
-        public GitHubClient(IRequestFactory factory, IClientConfiguration configuration)
+        public GitHubClient(IRequestFactory factory, IOAuth2Configuration configuration)
             : base(factory, configuration)
         {
         }
@@ -24,7 +24,7 @@ namespace OAuth2.Client.Impl
                 code = parameters["code"],
                 client_id = configuration.ClientId,
                 client_secret = configuration.ClientSecret,
-                redirect_uri = configuration.RedirectUri,        
+                redirect_uri = Configuration.RedirectUri,        
                 state = this.State,
             };
         }

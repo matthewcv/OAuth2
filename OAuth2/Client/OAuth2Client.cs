@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Specialized;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OAuth2.Configuration;
@@ -18,13 +19,22 @@ namespace OAuth2.Client
         private const string AccessTokenKey = "access_token";
 
         private readonly IRequestFactory _factory;
-        private readonly IClientConfiguration _configuration;
+        protected IOAuth2Configuration Configuration { get; private set; }
 
         /// <summary>
         /// Friendly name of provider (OAuth2 service).
         /// </summary>
         public abstract string ProviderName { get; }
+        protected virtual ClientConfiguration ClientConfiguration
+        {
+            get
+            {
+                return Configuration.Services.AsEnumerable().First(s => s.ProviderName == ProviderName);
+            }
+        }
+
         
+
         /// <summary>
         /// Access token returned by provider. Can be used for further calls of provider API.
         /// </summary>
@@ -61,10 +71,10 @@ namespace OAuth2.Client
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        protected OAuth2Client(IRequestFactory factory, IClientConfiguration configuration)
+        protected OAuth2Client(IRequestFactory factory, IOAuth2Configuration configuration)
         {
             _factory = factory;
-            _configuration = configuration;
+            Configuration = configuration;
         }
 
         /// <summary>
@@ -85,9 +95,9 @@ namespace OAuth2.Client
             request.AddObject(new
             {
                 response_type = "code",
-                client_id = _configuration.ClientId,
-                redirect_uri = _configuration.RedirectUri,
-                scope = _configuration.Scope,
+                client_id = ClientConfiguration.ClientId,
+                redirect_uri = Configuration.RedirectUri,
+                scope = ClientConfiguration.Scope,
                 state
             });
 
@@ -127,7 +137,7 @@ namespace OAuth2.Client
                 code = parameters["code"],
                 client_id = configuration.ClientId,
                 client_secret = configuration.ClientSecret,
-                redirect_uri = configuration.RedirectUri,
+                redirect_uri = Configuration.RedirectUri,
                 grant_type = "authorization_code"
             };
         }
@@ -144,7 +154,7 @@ namespace OAuth2.Client
             var request = _factory.NewRequest();
             request.Resource = AccessTokenServiceEndpoint.Resource;
             request.Method = Method.POST;
-            request.AddObject(this.BuildAccessTokenExchangeObject(parameters, _configuration));
+            request.AddObject(this.BuildAccessTokenExchangeObject(parameters, ClientConfiguration));
 
             var response = client.Execute(request);
             AfterGetAccessToken(response);

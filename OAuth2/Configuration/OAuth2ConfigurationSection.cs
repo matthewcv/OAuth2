@@ -1,4 +1,5 @@
 using System.Configuration;
+using OAuth2.Infrastructure;
 
 namespace OAuth2.Configuration
 {
@@ -7,15 +8,23 @@ namespace OAuth2.Configuration
     /// </summary>
     public class OAuth2ConfigurationSection : ConfigurationSection, IOAuth2Configuration
     {
+        private const string RedirectUriKey = "redirectUri";
+
         private const string CollectionName = "services";
 
         /// <summary>
-        /// Returns settings for service client with given name.
+        /// Redirect URI (URI user will be redirected to 
+        /// after authentication using third-party service).
         /// </summary>
-        public new IClientConfiguration this[string clientTypeName]
+        [ConfigurationProperty(RedirectUriKey, IsRequired = true)]
+        public string RedirectUri
         {
-            get { return this.Services[clientTypeName]; }
+            get
+            {
+                return UriUtility.ToAbsolute((string) this[RedirectUriKey]);
+            }
         }
+
 
         [ConfigurationProperty(CollectionName), ConfigurationCollection(typeof(ServiceCollection))]
         public ServiceCollection Services

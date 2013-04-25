@@ -19,7 +19,7 @@ namespace OAuth2.Client.Impl
         /// </summary>
         /// <param name="factory">The factory.</param>
         /// <param name="configuration">The configuration.</param>
-        public InstagramClient(IRequestFactory factory, IClientConfiguration configuration) 
+        public InstagramClient(IRequestFactory factory, IOAuth2Configuration configuration) 
             : base(factory, configuration)
         {
         }

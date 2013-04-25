@@ -5,9 +5,8 @@ namespace OAuth2.Configuration
     /// </summary>
     public interface IOAuth2Configuration
     {
-        /// <summary>
-        /// Returns settings for service client with given name.
-        /// </summary>
-        IClientConfiguration this[string clientTypeName] { get; }
+        ServiceCollection Services { get; }
+
+        string RedirectUri { get; }
     }
 }

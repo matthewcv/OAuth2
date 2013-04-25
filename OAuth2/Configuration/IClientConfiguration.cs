@@ -8,7 +8,7 @@ namespace OAuth2.Configuration
         /// <summary>
         /// Name of client type.
         /// </summary>
-        string ClientTypeName { get; }
+        string ProviderName { get; }
 
         /// <summary>
         /// Client state: enabled or disabled.
@@ -35,10 +35,5 @@ namespace OAuth2.Configuration
         /// </summary>
         string Scope { get; }
 
-        /// <summary>
-        /// Redirect URI (URI user will be redirected to 
-        /// after authentication using third-party service).
-        /// </summary>
-        string RedirectUri { get; }
     }
 }
